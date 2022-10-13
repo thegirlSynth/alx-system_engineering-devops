@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This bash script displays the string, "Best School", 10 times.
+#+ But for the 9th iteration, displays "Best School" and then "Hi" on a new line
+
+var=10
+while [ $var -ge 1 ]; do
+	if [ $var -eq 7 ]
+	then
+		echo "bad luck - $var"
+	elif [ $var -eq 3 ]
+	then
+		echo "good luck - $var"
+	else
+		echo "Best School - $var"
+	fi
+	((var--))
+done
