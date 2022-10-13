@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# This bash script displays the string, "Best School", 10 times.
+#+ But for the 9th iteration, displays "Best School" and then "Hi" on a new line
+
+var=1
+while [ $var -le 20 ]; do
+	echo "$var"
+	case "$var" in
+		#case 1
+		4) echo "bad luck from China" ;;
+		#case 2
+		9) echo "bad luck from Japan" ;;
+		#case 3
+		17) echo "bad luck from Italy" ;;
+	esac
+	((var++))
+done
