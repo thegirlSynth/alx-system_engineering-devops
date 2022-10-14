@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# This bash script displays the string, Best School, 10 times.
+# This bash script displays the content of the current directory in a list format
+#+ where only the part of the name after the first dash is displayed.
 
 LIST=$(ls)
 for i in $LIST; do
