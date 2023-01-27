@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Displays To infinity and beyond indefinitely, with a 2s sleep between
+
+echo $$ > /var/run/myscript.pid
+
+list=1
+while [ $list -le 1 ]; do
+    echo "To infinity and beyond"
+    sleep 2
+    trap "echo I hate the kill command" TERM
+    trap "echo Y U no love me?!" INT
+    trap "rm /var/run/myscript.pid; exit" TERM QUIT
+done    
