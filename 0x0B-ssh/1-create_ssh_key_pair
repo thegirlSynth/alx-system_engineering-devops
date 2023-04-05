@@ -8,4 +8,4 @@
 key_name="school"
 bits_num=4096
 
-ssh-keygen -t rsa -b $bits_num -f ~/.ssh/$key_name -N "betty"
+ssh-keygen -t rsa -b $bits_num -f $key_name -N "betty"
