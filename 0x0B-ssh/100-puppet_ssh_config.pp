@@ -1,11 +1,7 @@
 # Sets up the client SSH config file so that you can connect to a server without a password
 
-file_line { 'Turn off passwd auth':
-  path => '/etc/ssh/ssh_config',
-  line => 'PasswordAuthentication no',
-}
-
-file-line { 'Declare identity file':
-  path => '/etc/ssh/ssh_config',
-  line => 'IdentityFile ~/.ssh/school',
+exec { 'configure_ssh':
+  command => 'echo -e "\n  IdentityFile ~/.ssh/school\n  PasswordAuthentication no\n" >> /etc/ssh/config',
+  path => '/usr/bin',
+  unless  => 'grep -q "IdentityFile ~/.ssh/school" ~/.ssh/config && grep -q "PasswordAuthentication no" /etc/ssh/config',
 }
