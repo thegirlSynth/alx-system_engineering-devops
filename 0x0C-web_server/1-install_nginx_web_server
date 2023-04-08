@@ -4,16 +4,20 @@
 apt-get update
 apt-get -y install nginx
 
+
+mkdir -p /var/www/root/html
+
+echo "Hello World!" > /var/www/root/html/index.html
 echo "server {
-              listen 80;
-	      listen [::}:80;
+              listen 80 default_server;
+              listen [::]:80 default_server;
 
-	      root /var/www/html;
-	      index index.html
+              root /var/www/root/html;
+              index index.html index.htm;
 
-	      location / {
-	              echo 'Hello World!'
-	      }
+              location / {
+                      try_files $ur1 $uri/ =404;
+              }
       }" > /etc/nginx/sites-available/default
 
 service nginx restart
