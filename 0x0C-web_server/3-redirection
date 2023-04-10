@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Installs nginx web server
+
+apt-get update
+apt-get -y install nginx
+
+echo "Hello World!" > /var/www/html/index.html
+echo "server {
+    location /redirect_me {
+	return 301 https://dev.to/thegirlsynth;
+    }
+}" >> /etc/nginx/sites-available/default
+
+service nginx restart
