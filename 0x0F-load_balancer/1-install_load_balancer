@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#Installs HAproxy on load balancer
+
+apt-get update
+apt-get -y install haproxy
+
+#Ensures HAProxy can be managed via an init script
+echo "ENABLED=1" >> /etc/default/haproxy
+cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
+
+#find and replace tcp
+sed -i "s/mode\ttcp/mode\thttp/;s/option\ttcplog/option\thttplog/" /etc/haproxy/haproxy.cfg
+
+#Configure a proxy; add a frontend
+printf %s "frontend www
+        bind 0.0.0.0:80
+        default_backend new-backend
+" >> /etc/haproxy/haproxy.cfg
+
+#Add backends
+printf %s "backend new-backend
+        balance roundrobin
+        mode http
+        server 63593-web-01 54.237.34.16:80 check
+        server 63593-web-02 54.157.167.193:80 check" >> /etc/haproxy/haproxy.cfg
+
+#Enable HAProxy Logging
+printf %s "#Enable UDP syslog reception
+\$ModLoad imudp
+\$UDPServerRun 514
+\$UDPServerAddress 127.0.0.1" >> /etc/rsyslog.conf
+
+#Restart HAProxy and Nginx
+service rsyslog restart
+service haproxy restart
