@@ -12,7 +12,8 @@ cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
 sed -i "s/mode\ttcp/mode\thttp/;s/option\ttcplog/option\thttplog/" /etc/haproxy/haproxy.cfg
 
 #Configure a proxy; add a frontend
-printf %s "frontend www
+printf %s "frontend http
+	mode http
         bind 0.0.0.0:80
         default_backend new-backend
 " >> /etc/haproxy/haproxy.cfg
