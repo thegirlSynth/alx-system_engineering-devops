@@ -18,9 +18,9 @@ printf %s "frontend http
 #Add backends
 printf %s "backend new-backend
         balance roundrobin
-        mode http
         server 63593-web-01 54.237.34.16:80 check
-        server 63593-web-02 54.157.167.193:80 check" >> /etc/haproxy/haproxy.cfg
+        server 63593-web-02 54.157.167.193:80 check
+" >> /etc/haproxy/haproxy.cfg
 
 #Restart Nginx
 service haproxy restart
