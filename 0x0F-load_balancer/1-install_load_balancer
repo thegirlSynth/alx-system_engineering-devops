@@ -2,7 +2,9 @@
 #Installs HAproxy on load balancer
 
 apt-get update
-apt-get -y install haproxy
+apt-get install --no-install-recommends software-properties-common
+add-apt-repository ppa:vbernat/haproxy-2.0
+apt-get -y install haproxy=2.0\*
 
 #Ensures HAProxy can be managed via an init script
 echo "ENABLED=1" >> /etc/default/haproxy
@@ -11,7 +13,7 @@ cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
 #Configure a proxy; add a frontend
 printf %s "frontend http
 	mode http
-        bind 0.0.0.0:80
+        bind *:80
         default_backend new-backend
 " >> /etc/haproxy/haproxy.cfg
 
