@@ -8,9 +8,6 @@ apt-get -y install haproxy
 echo "ENABLED=1" >> /etc/default/haproxy
 cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.orig
 
-#find and replace tcp
-sed -i "s/mode\ttcp/mode\thttp/;s/option\ttcplog/option\thttplog/" /etc/haproxy/haproxy.cfg
-
 #Configure a proxy; add a frontend
 printf %s "frontend http
 	mode http
@@ -25,12 +22,5 @@ printf %s "backend new-backend
         server 63593-web-01 54.237.34.16:80 check
         server 63593-web-02 54.157.167.193:80 check" >> /etc/haproxy/haproxy.cfg
 
-#Enable HAProxy Logging
-printf %s "#Enable UDP syslog reception
-\$ModLoad imudp
-\$UDPServerRun 514
-\$UDPServerAddress 127.0.0.1" >> /etc/rsyslog.conf
-
-#Restart HAProxy and Nginx
-service rsyslog restart
+#Restart Nginx
 service haproxy restart
