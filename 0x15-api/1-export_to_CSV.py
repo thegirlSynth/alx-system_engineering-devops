@@ -15,7 +15,7 @@ if __name__ == "__main__":
     task_response = requests.get(url + "/todos")
     tasks = task_response.json()
 
-    csv_data = [['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']]
+    csv_data = []
     for todo in tasks:
         csv_data.append([id, employee_name, todo['completed'], todo['title']])
 
