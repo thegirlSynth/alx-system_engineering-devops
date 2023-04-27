@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+"""This module gathers data from an api"""
+
+import csv
+import requests
+import sys
+
+
+if __name__ == "__main__":
+    id = sys.argv[1]
+    url = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
+    response = requests.get(url)
+    employee_name = response.json().get('name')
+
+    task_response = requests.get(url + "/todos")
+    tasks = task_response.json()
+
+    csv_data = [['USER_ID', 'USERNAME', 'TASK_COMPLETED_STATUS', 'TASK_TITLE']]
+    for todo in tasks:
+        csv_data.append([id, employee_name, todo['completed'], todo['title']])
+
+    with open('{}.csv'.format(id), 'w') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        writer.writerows(csv_data)
