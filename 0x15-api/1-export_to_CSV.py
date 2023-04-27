@@ -10,7 +10,7 @@ if __name__ == "__main__":
     id = sys.argv[1]
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(id)
     response = requests.get(url)
-    employee_name = response.json().get('name')
+    employee_name = response.json().get('username')
 
     task_response = requests.get(url + "/todos")
     tasks = task_response.json()
