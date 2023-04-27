@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module gathers data from an api"""
+"""This module exports data gathered from an api in csv format"""
 
 import csv
 import requests
@@ -19,6 +19,6 @@ if __name__ == "__main__":
     for todo in tasks:
         csv_data.append([id, employee_name, todo['completed'], todo['title']])
 
-    with open('{}.csv'.format(id), 'w') as csv_file:
+    with open('{}.csv'.format(id), 'w', newline="") as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         writer.writerows(csv_data)
