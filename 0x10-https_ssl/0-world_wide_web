@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Displays information on subdomains. When no subdomain is specified, default subdomains are displayed.
 
 domain="$1"
 subdomain="$2"
