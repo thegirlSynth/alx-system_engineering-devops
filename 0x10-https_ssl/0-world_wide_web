@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+domain="$1"
+subdomain="$2"
+
+function subdomain_info {
+	local subdomain="$1"
+	local record_type
+	local destination
+        record_type=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:/ { getline; print $4 }')
+        destination=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:/ { getline; print $5 }')
+        echo "The subdomain $subdomain is a $record_type record and points to $destination"
+        }
+
+if [ -z "$subdomain" ]; then
+	subdomain_info "www"
+	subdomain_info "lb-01"
+	subdomain_info "web-01"
+	subdomain_info "web-02"
+else
+	subdomain_info "$subdomain"
+fi
