@@ -15,14 +15,14 @@ if __name__ == "__main__":
         id = user.get('id')
         username = user.get('username')
 
-        tasks_url = 'https://jsonplaceholder.typicode.com/users/{}/todos'.format(id)
+        tasks_url = url + '{}/todos'.format(id)
         task_response = requests.get(tasks_url)
         tasks = task_response.json()
 
         json_data = []
         for task in tasks:
             task_data = {
-                'username': username
+                'username': username,
                 'task': task.get('title'),
                 'completed': task.get('completed'),
             }
