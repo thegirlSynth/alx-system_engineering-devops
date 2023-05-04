@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#Displays information on subdomains. When no specific subdomain is provided, default subdomains are displayed.
+
+domain="$1"
+subdomain="$2"
+
+function get_subdomain {
+	local subdomain="$1"
+	local record_type
+	local destination
+	record_type=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:/ { getline; print $4 }')
+	destination=$(dig "$subdomain.$domain" | awk '/^;; ANSWER SECTION:/ { getline; print $5 }')
+	echo "The subdomain $subdomain is a $record_type record and points to $destination"
+	}
+
+if [ -z "$subdomain" ]; then
+	get_subdomain "www"
+	get_subdomain "lb-01"
+	get_subdomain "web-01"
+	get_subdomain "web-02"
+else
+	get_subdomain "$subdomain"
+fi
