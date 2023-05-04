@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Debugs an Ubuntu container's Nginx Installation
+# Turns out there was an error in the existing /etc/nginx/sites-enabled/default file
+
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart
