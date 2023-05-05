@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Debugs an Ubuntu container's Nginx Installation
-
-
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 service nginx restart
 pkill -o nginx
