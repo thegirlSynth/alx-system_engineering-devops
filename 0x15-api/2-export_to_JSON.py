@@ -18,8 +18,8 @@ if __name__ == "__main__":
     json_data = {str(id): []}
     for task in tasks:
         task_data = {
-            'task': task['title'],
-            'completed': task['completed'],
+            'task': task.get('title'),
+            'completed': task.get('completed'),
             'username': employee_name
         }
         json_data[str(id)].append(task_data)
