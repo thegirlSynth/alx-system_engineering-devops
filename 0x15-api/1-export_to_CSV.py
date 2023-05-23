@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     csv_data = []
     for todo in tasks:
-        csv_data.append([id, employee_name, todo['completed'], todo['title']])
+        csv_data.append([id, employee_name, todo.get('completed'), todo.get('title')])
 
     with open('{}.csv'.format(id), 'w', newline="") as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
